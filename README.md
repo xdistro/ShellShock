@@ -1,4 +1,4 @@
-shellshocker
+## Shell Shock
 ============
 
-The code behind https://shellshocker.net/
+The code behind http://xdistro.xyz/shellshock
