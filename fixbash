@@ -1,0 +1,66 @@
+#!/bin/sh
+##############################################################
+# This is the xdistro.in bash updater script.
+# Version 1.2!
+#
+# Are you looking at this in your web browser, and would like to apply the bash patches?
+# Just open up your terminal and type:
+#
+#    curl http://xdistro.xyz/shellshock/fixbash | sh
+########
+# This script will download bash 4.3 to your home directory, extract, download patches, patch,
+# install patches, and install the fixed bash.
+#   - Mac: OS X
+#   - Linux: x86 and x86_64 systems
+##############################################################
+echo "----------------------------------------------"
+echo "-- WELCOME TO THE SHELLSHOCKER BASH PATCHER --"
+echo "----------------------------------------------"
+echo "---     Revision 8, 092914-4:56PM ETC      ---"
+echo "--- Provided by http://xdistro.in/shellshock -"
+echo "----------------------------------------------"
+echo "Creating folders..."
+cd ~/
+mkdir bash-shellshocker
+cd bash-shellshocker
+echo "Downloading Bash..."
+wget https://ftp.gnu.org/gnu/bash/bash-4.3.tar.gz
+echo "Downloading Bash patches..."
+i=0
+rtn=0
+while [ $rtn -eq 0 ]; do
+    i=`expr $i + 1`
+    wget https://ftp.gnu.org/gnu/bash/bash-4.3-patches/bash43-$(printf '%03g' $i)
+    rtn=$?
+done
+i=`expr $i - 1`
+echo "Extracting bash from tar.gz..."
+tar zxvf bash-4.3.tar.gz
+cd bash-4.3
+echo "Applying Patches..."
+for j in $(seq -f "%03g" 1 $i);do patch -p0 < ../bash43-$j; done
+
+if [[ "$USER" == "root" ]]
+then
+  echo "Ready to install. Configuring..."
+  ./configure --prefix=/
+  echo "Running make"
+  make
+  echo "Running make install"
+  make install
+  cp /bin/bash /usr/local/bin/bash
+else
+  echo "Ready to install. Configuring... You may need to type your sudo password here."
+  sudo ./configure --prefix=/
+  echo "Running make"
+  sudo make
+  echo "Running make install"
+  sudo make install
+  sudo cp /bin/bash /usr/local/bin/bash
+fi
+
+echo "----------------------------------------------"
+echo "Done! Try opening a new bash shell and checking if your system is still vulnerable."
+echo "Script provided by https://xdistro.in/"
+echo "Send issue requests to http://xdistro.in/#contact"
+echo "-Thanks"
