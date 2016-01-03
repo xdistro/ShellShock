@@ -1,4 +1,4 @@
-# Shell Shock [![Gitter](https://badges.gitter.im/JoinChat.svg)](https://gitter.im/xdistro/xdistro)
+# Shell Shock
 
 ### What is #shellshock?
 
