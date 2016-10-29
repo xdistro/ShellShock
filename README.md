@@ -10,8 +10,4 @@ You can use this website to test if your system is vulnerable, and also learn ho
 
 ------
 
-### X Distro | Shell Shock Preview
-
-![Shell Shock](http://xdistro.xyz/wp-content/uploads/2015/08/Shell-Shock.png)
-
 Shell Shock [Implemented Here](http://xdistro.xyz/shellshock/).
